@@ -4,6 +4,8 @@
 #include<math.h>
 #include<TXLib.h>
 
+const int EMPTY = 14378;
+
 int SolveSquare( double a, double b, double c, double *x1, double *x2);
 
 int main(void){
@@ -41,13 +43,13 @@ int SolveSquare(double a, double b, double c, double *x1, double *x2)
         {
         return (c == 0)? EMPTY : 0;  // if(a == 0) and (b == 0) and (c == 0)
         }
-    }   else // if (a == 0) and  (b != 0)
+        else // if (a == 0) and  (b != 0)
         {
             *x1 = -c / b;
             return 1;
         }
-
-    else // if (a != 0)
+    }
+    else //  if (a != 0)
     {
         double d = b * b - 4 * a * c;  //d - discriminant
 
@@ -56,7 +58,7 @@ int SolveSquare(double a, double b, double c, double *x1, double *x2)
             *x1 = *x2 = -b / (2 * a);
             return 1;
         }
-    }   else // d != 0
+        else // d != 0
         {
             double sqrt_d = sqrt(d);
 
@@ -64,4 +66,5 @@ int SolveSquare(double a, double b, double c, double *x1, double *x2)
             *x2 = (-b + sqrt_d) / ( 2 * a);
             return 2;
         }
+    }
 }
