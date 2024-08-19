@@ -16,10 +16,26 @@ int main(void){
     double a = 0, b = 0, c = 0;
     scanf("%lg %lg %lg", &a, &b, &c);
 
-    double x1 = 0, x2 = 0;
-    int searchRoots = SolveSquare(a, b, c, &x1, &x2);
+    //verification - a
+    if (isnan(a) == 0)
+        puts (“a - it is number”)
+    else
+        puts ("a - Nan")
+    //verification - b
+    if (isnan(b) == 0)
+        puts (“b - it is number”)
+    else
+        puts ("b - Nan")
+    // verification - c
+    if (isnan(c) == 0)
+        puts (“c - it is number”)
+    else
+        puts ("c - Nan")
 
-    switch(searchRoots)
+    double x1 = 0, x2 = 0;
+    int rootsCount = SolveSquare(a, b, c, &x1, &x2);
+
+    switch(rootsCount)
     {
         case 0: printf("No roots\n");
                 break;
@@ -37,11 +53,11 @@ int main(void){
 
 int SolveSquare(double a, double b, double c, double *x1, double *x2)
 {
-    if (a == 0)  // if (a == 0)
+    if (a == 0)
     {
-        if (b == 0)  // if (a == 0) and (b == 0)
+        if (b == 0)
         {
-        return (c == 0)? EMPTY : 0;  // if(a == 0) and (b == 0) and (c == 0)
+            return (c == 0)? EMPTY : 0;
         }
         else // if (a == 0) and  (b != 0)
         {
@@ -51,20 +67,28 @@ int SolveSquare(double a, double b, double c, double *x1, double *x2)
     }
     else //  if (a != 0)
     {
-        double d = b * b - 4 * a * c;  //d - discriminant
+        double discriminant = b * b - 4 * a * c;
 
-        if (d == 0)
+        if (discriminant == 0)
         {
             *x1 = *x2 = -b / (2 * a);
             return 1;
         }
-        else // d != 0
+        else
         {
-            double sqrt_d = sqrt(d);
+            double sqrt_discriminant = sqrt(discriminant);
 
-            *x1 = (-b - sqrt_d) / ( 2 * a);
-            *x2 = (-b + sqrt_d) / ( 2 * a);
-            return 2;
+            if (discriminant > 0)
+            {
+                *x1 = (-b - sqrt_discriminant) / ( 2 * a);
+                *x2 = (-b + sqrt_discriminant) / ( 2 * a);
+                return 2;
+            }
+            else
+            {
+                return 0;
+            }
+
         }
     }
 }
