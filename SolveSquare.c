@@ -3,38 +3,37 @@
 #include<stdio.h>
 #include<math.h>
 #include<TXLib.h>
+#include<assert.h>
 
 enum nRoots {
     ZERO_ROOT = 0,
     ONE_ROOT  = 1,
-    TWO_ROOT  = 2 // TODO: add inf_roots
+    TWO_ROOT  = 2,
+    SS_INF_ROOTS = -1 // TODO: add inf_roots
 };
 
-const int SS_INF_ROOTS = -1;
-
 void SkipLine();
+void buffer_scanf();
 
 bool is_zero(double x);
 
-int SolveSquare( double a, double b, double c, double *x1, double *x2);
+int input_coef();
+
+
+nRoots SolveSquare( double a, double b, double c, double *x1, double *x2);
 
 
 
 
-int main(void){
+int main(void)
+{
 
     printf("#Square Solver! by rAch-kaplin\n");
 
     printf("#Enter a b c: ");
 
     double a = NAN, b = NAN, c = NAN;
-
-    while (scanf("%lg %lg %lg", &a, &b, &c) != 3)
-    {
-        printf("error - a, b, c\n");
-        printf("Enter a, b, c again: ");
-        SkipLine();
-    }
+    buffer_scanf(&a, &b, &c);
 
 
     double x1 = NAN, x2 = NAN;
@@ -42,17 +41,16 @@ int main(void){
 
     switch(rootsCount)
     {
-        case ZERO_ROOT: printf("No roots\n");
+        case 0: printf("No roots\n");
                 break;
-        case ONE_ROOT: printf("x = %lg\n", x1);
+        case 1: printf("x = %lg\n", x1);
                 break;
-        case TWO_ROOT: printf("x1 = %lg and x2 = %lg\n", x1, x2);
+        case 2: printf("x1 = %lg and x2 = %lg\n", x1, x2);
                 break;
         case SS_INF_ROOTS: printf("Any number\n");
                 break;
         default: printf("main() ERROR");
-            return 1;
-    }
+     }       return 1;
 
     return 0;
 }
@@ -134,5 +132,17 @@ void SkipLine()
 {
     int line;
     while ( (line = getchar()) != '\n' && line != EOF );
+
+}
+
+void buffer_scanf(double* a, double* b, double* c)
+{
+
+    while (scanf("%lg %lg %lg", a, b, c) != 3)
+    {
+        printf("error - a, b, c\n");
+        printf("Enter a, b, c again: ");
+        SkipLine();
+    }
 
 }
