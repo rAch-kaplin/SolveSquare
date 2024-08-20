@@ -50,11 +50,11 @@ bool is_zero(double x)
 
 int SolveSquare(double a, double b, double c, double *x1, double *x2)
 {
-    if (a == 0)
+    if (is_zero(a))
     {
-        if (b == 0)
+        if (is_zero(b))
         {
-            return (c == 0)? SS_INF_ROOTS : 0;
+            return (is_zero(c))? SS_INF_ROOTS : 0;
         }
         else // if (a == 0) and  (b != 0)
         {
@@ -66,17 +66,17 @@ int SolveSquare(double a, double b, double c, double *x1, double *x2)
     {
         double discriminant = b * b - 4 * a * c;
 
-        if (discriminant == 0)
+        if (is_zero(discriminant))
         {
             *x1 = *x2 = -b / (2 * a);
             return 1;
         }
         else
         {
-            double sqrt_discriminant = sqrt(discriminant);
 
             if (discriminant > 0)
             {
+                double sqrt_discriminant = sqrt(discriminant);
                 *x1 = (-b - sqrt_discriminant) / ( 2 * a);
                 *x2 = (-b + sqrt_discriminant) / ( 2 * a);
                 return 2;
