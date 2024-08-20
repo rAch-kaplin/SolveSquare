@@ -4,7 +4,9 @@
 #include<math.h>
 #include<TXLib.h>
 
-const int EMPTY = 14378;
+const int SS_INF_ROOTS = -1;
+
+bool compare_zero(double x);
 
 int SolveSquare( double a, double b, double c, double *x1, double *x2);
 
@@ -18,19 +20,19 @@ int main(void){
 
     //verification - a
     if (isnan(a) == 0)
-        puts (“a - it is number”)
+        puts ("a - it is number");
     else
-        puts ("a - Nan")
+        puts ("a - Nan");
     //verification - b
     if (isnan(b) == 0)
-        puts (“b - it is number”)
+        puts ("b - it is number");
     else
-        puts ("b - Nan")
+        puts ("b - Nan");
     // verification - c
     if (isnan(c) == 0)
-        puts (“c - it is number”)
+        puts ("c - it is number");
     else
-        puts ("c - Nan")
+        puts ("c - Nan");
 
     double x1 = 0, x2 = 0;
     int rootsCount = SolveSquare(a, b, c, &x1, &x2);
@@ -43,12 +45,21 @@ int main(void){
                 break;
         case 2: printf("x1 = %lg and x2 = %lg\n", x1, x2);
                 break;
-        case EMPTY: printf("Any number\n");
+        case SS_INF_ROOTS: printf("Any number\n");
                 break;
         default: printf("...");
     }
 
     return 1;
+}
+
+bool compare_zero(double x)
+{
+    const num = 1e-6;
+    if (x <= num && x >= -num)
+        return 1;
+    else
+        return 0;
 }
 
 int SolveSquare(double a, double b, double c, double *x1, double *x2)
@@ -57,7 +68,7 @@ int SolveSquare(double a, double b, double c, double *x1, double *x2)
     {
         if (b == 0)
         {
-            return (c == 0)? EMPTY : 0;
+            return (c == 0)? SS_INF_ROOTS : 0;
         }
         else // if (a == 0) and  (b != 0)
         {
