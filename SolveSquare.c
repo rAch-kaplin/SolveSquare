@@ -6,35 +6,20 @@
 
 const int SS_INF_ROOTS = -1;
 
-bool compare_zero(double x);
+bool is_zero(double x);
 
 int SolveSquare( double a, double b, double c, double *x1, double *x2);
 
 int main(void){
     printf("#Square Solver! by rAch-kaplin\n");
 
-    printf("#Enter a b c:\n");
+    printf("#Enter a b c: ");
 
-    double a = 0, b = 0, c = 0;
+    double a = NAN, b = NAN, c = NAN;
     scanf("%lg %lg %lg", &a, &b, &c);
 
-    //verification - a
-    if (isnan(a) == 0)
-        puts ("a - it is number");
-    else
-        puts ("a - Nan");
-    //verification - b
-    if (isnan(b) == 0)
-        puts ("b - it is number");
-    else
-        puts ("b - Nan");
-    // verification - c
-    if (isnan(c) == 0)
-        puts ("c - it is number");
-    else
-        puts ("c - Nan");
 
-    double x1 = 0, x2 = 0;
+    double x1 = NAN, x2 = NAN;
     int rootsCount = SolveSquare(a, b, c, &x1, &x2);
 
     switch(rootsCount)
@@ -47,15 +32,16 @@ int main(void){
                 break;
         case SS_INF_ROOTS: printf("Any number\n");
                 break;
-        default: printf("...");
+        default: printf("main() ERROR");
+            return 1;
     }
 
-    return 1;
+    return 0;
 }
 
-bool compare_zero(double x)
+bool is_zero(double x)
 {
-    const num = 1e-6;
+    const double num = 1e-6;
     if (x <= num && x >= -num)
         return 1;
     else
