@@ -4,6 +4,12 @@
 #include<math.h>
 #include<TXLib.h>
 
+enum nRoots {
+    ZERO_ROOT = 0,
+    ONE_ROOT  = 1,
+    TWO_ROOT  = 2 // TODO: add inf_roots
+};
+
 const int SS_INF_ROOTS = -1;
 
 void SkipLine();
@@ -12,18 +18,16 @@ bool is_zero(double x);
 
 int SolveSquare( double a, double b, double c, double *x1, double *x2);
 
+
+
+
 int main(void){
-
-
 
     printf("#Square Solver! by rAch-kaplin\n");
 
     printf("#Enter a b c: ");
 
     double a = NAN, b = NAN, c = NAN;
-    scanf("%lg %lg %lg", &a, &b, &c);
-
-
 
     while (scanf("%lg %lg %lg", &a, &b, &c) != 3)
     {
@@ -38,11 +42,11 @@ int main(void){
 
     switch(rootsCount)
     {
-        case 0: printf("No roots\n");
+        case ZERO_ROOT: printf("No roots\n");
                 break;
-        case 1: printf("x = %lg\n", x1);
+        case ONE_ROOT: printf("x = %lg\n", x1);
                 break;
-        case 2: printf("x1 = %lg and x2 = %lg\n", x1, x2);
+        case TWO_ROOT: printf("x1 = %lg and x2 = %lg\n", x1, x2);
                 break;
         case SS_INF_ROOTS: printf("Any number\n");
                 break;
@@ -53,6 +57,8 @@ int main(void){
     return 0;
 }
 
+
+
 bool is_zero(double x)
 {
     const double num = 1e-6;
@@ -61,6 +67,8 @@ bool is_zero(double x)
     else
         return 0;
 }
+
+
  //-------------------------------------------------
  //! Solve Square equation ax^2 + bx + c = 0
 
@@ -68,7 +76,9 @@ bool is_zero(double x)
 
 
  //-------------------------------------------------
-int SolveSquare(double a, double b, double c, double *x1, double *x2)
+
+
+nRoots SolveSquare(double a, double b, double c, double *x1, double *x2)
 {
     assert(isfinite(a));
     assert(isfinite(b));
@@ -82,12 +92,12 @@ int SolveSquare(double a, double b, double c, double *x1, double *x2)
     {
         if (is_zero(b))
         {
-            return (is_zero(c))? SS_INF_ROOTS : 0;
+            return (is_zero(c))? SS_INF_ROOTS : ZERO_ROOT;
         }
         else // if (a == 0) and  (b != 0)
         {
             *x1 = -c / b;
-            return 1;
+            return ONE_ROOT;
         }
     }
     else //  if (a != 0)
@@ -97,7 +107,7 @@ int SolveSquare(double a, double b, double c, double *x1, double *x2)
         if (is_zero(discriminant))
         {
             *x1 = *x2 = -b / (2 * a);
-            return 1;
+            return ONE_ROOT;
         }
         else
         {
@@ -107,16 +117,18 @@ int SolveSquare(double a, double b, double c, double *x1, double *x2)
                 double sqrt_discriminant = sqrt(discriminant);
                 *x1 = (-b - sqrt_discriminant) / ( 2 * a);
                 *x2 = (-b + sqrt_discriminant) / ( 2 * a);
-                return 2;
+                return TWO_ROOT;
             }
             else
             {
-                return 0;
+                return ZERO_ROOT;
             }
 
         }
     }
 }
+
+
 
 void SkipLine()
 {
