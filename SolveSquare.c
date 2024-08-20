@@ -61,9 +61,23 @@ bool is_zero(double x)
     else
         return 0;
 }
+ //-------------------------------------------------
+ //! Solve Square equation ax^2 + bx + c = 0
 
+
+
+
+ //-------------------------------------------------
 int SolveSquare(double a, double b, double c, double *x1, double *x2)
 {
+    assert(isfinite(a));
+    assert(isfinite(b));
+    assert(isfinite(c));
+
+    assert(x1 != NULL);
+    assert(x2 != NULL);
+    assert(x1 != x2);
+
     if (is_zero(a))
     {
         if (is_zero(b))
