@@ -6,17 +6,31 @@
 
 const int SS_INF_ROOTS = -1;
 
+void SkipLine();
+
 bool is_zero(double x);
 
 int SolveSquare( double a, double b, double c, double *x1, double *x2);
 
 int main(void){
+
+
+
     printf("#Square Solver! by rAch-kaplin\n");
 
     printf("#Enter a b c: ");
 
     double a = NAN, b = NAN, c = NAN;
     scanf("%lg %lg %lg", &a, &b, &c);
+
+
+
+    while (scanf("%lg %lg %lg", &a, &b, &c) != 3)
+    {
+        printf("error - a, b, c\n");
+        printf("Enter a, b, c again: ");
+        SkipLine();
+    }
 
 
     double x1 = NAN, x2 = NAN;
@@ -88,4 +102,11 @@ int SolveSquare(double a, double b, double c, double *x1, double *x2)
 
         }
     }
+}
+
+void SkipLine()
+{
+    int line;
+    while ( (line = getchar()) != '\n' && line != EOF );
+
 }
