@@ -11,6 +11,7 @@ enum nRoots {
     TWO_ROOT  = 2,
     SS_INF_ROOTS = -1
 };
+int print_roots(int rootsCount, double x1,double x2);
 
 void SkipLine();
 
@@ -52,18 +53,8 @@ int main(void)
     double x1 = NAN, x2 = NAN;
     nRoots rootsCount = SolveSquare(a, b, c, &x1, &x2);
 
-    switch(rootsCount)
-    {
-        case ZERO_ROOT: printf("No roots\n");
-                break;
-        case ONE_ROOT: printf("x = %lg\n", x1);
-                break;
-        case TWO_ROOT: printf("x1 = %lg and x2 = %lg\n", x1, x2);
-                break;
-        case SS_INF_ROOTS: printf("Any number\n");
-                break;
-        default: printf("main() ERROR");
-     }       return 1;
+    print_roots(rootsCount, x1, x2);
+
 
     return 0;
 }
@@ -178,5 +169,19 @@ int CompareDoubles(double a, double b)
             return 0;
 }
 
-
+int print_roots(int rootsCount, double x1, double x2)
+{
+    switch(rootsCount)
+    {
+        case ZERO_ROOT: printf("No roots\n");
+                break;
+        case ONE_ROOT: printf("x = %lg\n", x1);
+                break;
+        case TWO_ROOT: printf("x1 = %lg and x2 = %lg\n", x1, x2);
+                break;
+        case SS_INF_ROOTS: printf("Any number\n");
+                break;
+        default: printf("main() ERROR");
+     }       return 1;
+}
 
