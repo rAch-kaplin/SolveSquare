@@ -32,9 +32,9 @@ nRoots SolveSquare( double a, double b, double c, double *x1, double *x2);
 
 int main(void)
 {
-    printf ("i am here\n");
     RunTest(1, 1, 2, -3, 1, -3, 2);
     RunTest(2, 1, -4, 8, 0, 0, 0);
+    RunTest(3, 1, 0, -4,-2, 2, 2);
 
 
 
@@ -50,7 +50,7 @@ int main(void)
 
 
     double x1 = NAN, x2 = NAN;
-    int rootsCount = SolveSquare(a, b, c, &x1, &x2);
+    nRoots rootsCount = SolveSquare(a, b, c, &x1, &x2);
 
     switch(rootsCount)
     {
@@ -85,11 +85,10 @@ nRoots SolveSquare(double a, double b, double c, double *x1, double *x2)
     assert(isfinite(a));
     assert(isfinite(b));
     assert(isfinite(c));
-//    printf ("&x1 == %p\n", x1);
+
     assert(x1 != NULL);
     assert(x2 != NULL);
     assert(x1 != x2);
-    // assert (1 == 2);
 
     if (is_zero(a))
     {
@@ -178,3 +177,6 @@ int CompareDoubles(double a, double b)
         else
             return 0;
 }
+
+
+
