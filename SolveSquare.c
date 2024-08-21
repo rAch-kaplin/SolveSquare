@@ -14,13 +14,15 @@ enum nRoots {
 
 void SkipLine();
 
-int RunTest(int numberTest, double a, double b, double c, double x1Correct, double x2Correct, int rootsCountCorrect);
+void RunTest(int numberTest, double a, double b, double c, double x1Correct, double x2Correct, int rootsCountCorrect);
 
 bool is_zero(double x);
 
-int buffer_scanf(double *a, double *b, double *c);
+void buffer_scanf(double *a, double *b, double *c);
 
 int input_coef();
+
+int CompareDoubles(double a, double b);
 
 
 nRoots SolveSquare( double a, double b, double c, double *x1, double *x2);
@@ -32,6 +34,8 @@ int main(void)
 {
     printf ("i am here\n");
     RunTest(1, 1, 2, -3, 1, -3, 2);
+    RunTest(2, 1, -4, 8, 0, 0, 0);
+
 
 
     printf("#Square Solver! by rAch-kaplin\n");
@@ -46,15 +50,15 @@ int main(void)
 
 
     double x1 = NAN, x2 = NAN;
-    int rootsCount = SolveSquare(a, b, c, 0, &x2);
+    int rootsCount = SolveSquare(a, b, c, &x1, &x2);
 
     switch(rootsCount)
     {
-        case 0: printf("No roots\n");
+        case ZERO_ROOT: printf("No roots\n");
                 break;
-        case 1: printf("x = %lg\n", x1);
+        case ONE_ROOT: printf("x = %lg\n", x1);
                 break;
-        case 2: printf("x1 = %lg and x2 = %lg\n", x1, x2);
+        case TWO_ROOT: printf("x1 = %lg and x2 = %lg\n", x1, x2);
                 break;
         case SS_INF_ROOTS: printf("Any number\n");
                 break;
@@ -81,7 +85,7 @@ nRoots SolveSquare(double a, double b, double c, double *x1, double *x2)
     assert(isfinite(a));
     assert(isfinite(b));
     assert(isfinite(c));
-    printf ("&x1 == %p\n", x1);
+//    printf ("&x1 == %p\n", x1);
     assert(x1 != NULL);
     assert(x2 != NULL);
     assert(x1 != x2);
@@ -131,19 +135,19 @@ nRoots SolveSquare(double a, double b, double c, double *x1, double *x2)
 
 void SkipLine()
 {
-    char line;
-    while ( (line = getchar()) != '\n' && line != EOF && line != 26)
-        printf ("line == %c <%d>\n", line, line);
+    int line;
+    while ((line = getchar()) != '\n' && line != EOF);
+//        printf ("line == %c <%d>\n", line, line);
 
 }
 
-int RunTest(int numberTest, double a, double b, double c, double x1Correct, double x2Correct, int rootsCountCorrect)
+void RunTest(int numberTest, double a, double b, double c, double x1Correct, double x2Correct, int rootsCountCorrect)
 {
     double x1 = 0, x2 = 0;
     int rootsCount = SolveSquare(a, b, c, &x1, &x2);
-    if (rootsCount != rootsCountCorrect || x1 != x1Correct || x2 != x2Correct)
+    if (CompareDoubles(rootsCount, rootsCountCorrect) || CompareDoubles(x1, x1Correct) || CompareDoubles(x2, x2Correct))
     {
-        if (x1 != x2Correct || x2 != x1Correct)
+        if (CompareDoubles(x1, x2Correct) || CompareDoubles(x2, x1Correct))
         {
             printf("ERROR numberTest = ¹%d, a = %lg, b = %lg, c = %lg, x1 = %lg, x2 = %lg, rootsCount = %d\n"
             "x1Correct = %lg, x2Correct = %lg, rootsCountCorrect = %d\n", numberTest, a, b, c, x1, x2, rootsCount, x1Correct, x2Correct, rootsCountCorrect);
@@ -156,7 +160,7 @@ int RunTest(int numberTest, double a, double b, double c, double x1Correct, doub
 
 }
 
-int buffer_scanf(double *a, double *b, double *c)
+void buffer_scanf(double *a, double *b, double *c)
 {
     while (scanf("%lg %lg %lg", a, b, c) != 3)
     {
@@ -165,4 +169,12 @@ int buffer_scanf(double *a, double *b, double *c)
         SkipLine();
     }
 
+}
+
+int CompareDoubles(double a, double b)
+{
+        if (fabs(a - b) > 1e-6)
+            return 1;
+        else
+            return 0;
 }
