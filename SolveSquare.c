@@ -9,11 +9,11 @@ enum nRoots {
     ZERO_ROOT = 0,
     ONE_ROOT  = 1,
     TWO_ROOT  = 2,
-    SS_INF_ROOTS = -1 // TODO: add inf_roots
+    SS_INF_ROOTS = -1
 };
 
 void SkipLine();
-void buffer_scanf();
+
 
 bool is_zero(double x);
 
@@ -33,7 +33,12 @@ int main(void)
     printf("#Enter a b c: ");
 
     double a = NAN, b = NAN, c = NAN;
-    buffer_scanf(&a, &b, &c);
+    while (scanf("%lg %lg %lg", &a, &b, &c) != 3)
+    {
+        printf("error - a, b, c\n");
+        printf("Enter a, b, c again: ");
+        SkipLine();
+    }
 
 
     double x1 = NAN, x2 = NAN;
@@ -135,14 +140,14 @@ void SkipLine()
 
 }
 
-void buffer_scanf(double* a, double* b, double* c)
-{
-
-    while (scanf("%lg %lg %lg", a, b, c) != 3)
-    {
-        printf("error - a, b, c\n");
-        printf("Enter a, b, c again: ");
-        SkipLine();
-    }
-
-}
+//int buffer_scanf(double* a, double* b, double* c)
+//
+//
+//    while (scanf("%lg %lg %lg", a, b, c) != 3)
+//    {
+//        printf("error - a, b, c\n");
+//        printf("Enter a, b, c again: ");
+//        SkipLine();
+//    }
+//
+//
