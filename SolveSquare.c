@@ -14,6 +14,7 @@ enum nRoots {
 
 void SkipLine();
 
+int RunTest(int numberTest, double a, double b, double c, double x1Correct, double x2Correct, int rootsCountCorrect);
 
 bool is_zero(double x);
 
@@ -27,7 +28,7 @@ nRoots SolveSquare( double a, double b, double c, double *x1, double *x2);
 
 int main(void)
 {
-
+    RunTest(1, 1, 2, -3, 1, -3, 2);
     printf("#Square Solver! by rAch-kaplin\n");
 
     printf("#Enter a b c: ");
@@ -140,14 +141,19 @@ void SkipLine()
 
 }
 
-//int buffer_scanf(double* a, double* b, double* c)
-//
-//
-//    while (scanf("%lg %lg %lg", a, b, c) != 3)
-//    {
-//        printf("error - a, b, c\n");
-//        printf("Enter a, b, c again: ");
-//        SkipLine();
-//    }
-//
-//
+int RunTest(int numberTest, double a, double b, double c, double x1Correct, double x2Correct, int rootsCountCorrect)
+{
+    double x1 = 0, x2 = 0;
+    int rootsCount = SolveSquare(a, b, c, &x1, &x2);
+    if (rootsCount != rootsCountCorrect || x1 != x1Correct || x2 != x2Correct)
+    {
+        if (x1 != x2Correct || x2 != x1Correct)
+        {
+        printf("ERROR nTest = ¹%d, a = %lg, b = %lg, c = %lg, x1 = %lg, x2 = %lg, rootsCount = %d\n"
+        "x1Correct = %lg, x2Correct = %lg, rootsCountCorrect = %d\n", numberTest, a, b, c, x1, x2, rootsCount, x1Correct, x2Correct, rootsCountCorrect);
+        }
+        else
+        printf("test successfull\n");
+    }
+
+}
