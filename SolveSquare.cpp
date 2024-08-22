@@ -4,23 +4,7 @@
 #include<math.h>
 #include<TXLib.h>
 #include<assert.h>
-//
-//struct test_data
-//{
-//    double a, b, c;
-//    double x1, x2;
-//
-//}
 
-struct solveSquare
-{
-    double a;
-    double b;
-    double c;
-    double x1;
-    double x2;
-    int rootsCount;
-};
 
 enum nRoots {
     ZERO_ROOT = 0,
@@ -29,11 +13,22 @@ enum nRoots {
     SS_INF_ROOTS = -1
 };
 
+struct solveSquare
+{
+    double a;
+    double b;
+    double c;
+    double x1;
+    double x2;
+    nRoots rootsCount;
+};
+
+
 void RunTest(int numberTest, double a, double b, double c, double x1Correct, double x2Correct, int rootsCountCorrect);
 
 
 
-int print_roots( roots);
+int print_roots(solveSquare roots);
 
 void buffer_scanf(solveSquare * roots);
 
@@ -44,7 +39,7 @@ int CompareDoubles(double a, double b);
 bool is_zero(double x);
 
 
-nRoots SolveSquare(solveSquare roots);
+void SolveSquare(solveSquare * roots);
 
 
 int main(void)
@@ -63,7 +58,7 @@ int main(void)
     buffer_scanf(&roots);
 
 
-    nRoots rootsCount = SolveSquare(&roots);
+    SolveSquare(NULL); //  по-другому считывать количество корней
 
     print_roots(roots);
 
@@ -73,36 +68,35 @@ int main(void)
 
 
 
-nRoots SolveSquare(solveSquare roots)
+void SolveSquare(solveSquare * roots)
 {
-    assert(isfinite(a));
-    assert(isfinite(b));
-    assert(isfinite(c));
+    assert(isfinite(roots->a));
+    assert(isfinite(roots->b));
+    assert(isfinite(roots->c));
+    assert(roots != NULL);
 
-    assert(x1 != NULL);
-    assert(x2 != NULL);
-    assert(x1 != x2);
-
-    if (is_zero(a))
+    if (is_zero(roots->a))
     {
-        if (is_zero(b))
+        if (is_zero(roots->b))
         {
-            return (is_zero(c))? SS_INF_ROOTS : ZERO_ROOT;
+
+            roots->rootsCount = (is_zero(roots->c))? SS_INF_ROOTS : ZERO_ROOT;
         }
         else // if (a == 0) and  (b != 0)
         {
-            *x1 = -c / b;
-            return ONE_ROOT;
+            roots->x1 = -(roots->c) / (roots->b);
+
+            roots->rootsCount = ONE_ROOT;
         }
     }
     else //  if (a != 0)
     {
-        double discriminant = b * b - 4 * a * c;
+        double discriminant = (roots->b) * (roots->b) - 4 * (roots->a) * (roots->c);
 
         if (is_zero(discriminant))
         {
-            *x1 = *x2 = -b / (2 * a);
-            return ONE_ROOT;
+            roots->x1 = roots->x2 = -(roots->b) / (2 * (roots->a));
+            roots->rootsCount = ONE_ROOT;
         }
         else
         {
@@ -110,13 +104,13 @@ nRoots SolveSquare(solveSquare roots)
             if (discriminant > 0)
             {
                 double sqrt_discriminant = sqrt(discriminant);
-                *x1 = (-b - sqrt_discriminant) / ( 2 * a);
-                *x2 = (-b + sqrt_discriminant) / ( 2 * a);
-                return TWO_ROOT;
+                roots->x1 = (-(roots->b) - sqrt_discriminant) / ( 2 * (roots->a));
+                roots->x2 = (-(roots->b) + sqrt_discriminant) / ( 2 * (roots->a));
+                roots->rootsCount = TWO_ROOT;
             }
             else
             {
-                return ZERO_ROOT;
+                roots->rootsCount = ZERO_ROOT;
             }
 
         }
@@ -134,14 +128,18 @@ void SkipLine()
 
 void RunTest(int numberTest, double a, double b, double c, double x1Correct, double x2Correct, int rootsCountCorrect)
 {
-    double x1 = 0, x2 = 0;
-    int rootsCount = SolveSquare(solveSquare roots);
-    if (CompareDoubles(rootsCount, rootsCountCorrect) || CompareDoubles(x1, x1Correct) || CompareDoubles(x2, x2Correct))
+
+    struct solveSquare equation_test = {a, b, c, NAN, NAN, ZERO_ROOT};
+    SolveSquare(&equation_test);
+
+    if (CompareDoubles(equation_test.rootsCount, rootsCountCorrect) || CompareDoubles(equation_test.x1, x1Correct) || CompareDoubles(equation_test.x2, x2Correct))
     {
-        if (CompareDoubles(x1, x2Correct) || CompareDoubles(x2, x1Correct))
+        if (CompareDoubles(equation_test.x1, x2Correct) || CompareDoubles(equation_test.x2, x1Correct))
         {
-            printf("ERROR numberTest = В№%d, a = %lg, b = %lg, c = %lg, x1 = %lg, x2 = %lg, rootsCount = %d\n"
-            "x1Correct = %lg, x2Correct = %lg, rootsCountCorrect = %d\n", numberTest, a, b, c, x1, x2, rootsCount, x1Correct, x2Correct, rootsCountCorrect);
+            printf("ERROR numberTest = %d, a = %lg, b = %lg, c = %lg, x1 = %lg, x2 = %lg, rootsCount = %d\n"
+                   "x1Correct = %lg, x2Correct = %lg, rootsCountCorrect = %d\n",
+                   numberTest, equation_test.a, equation_test.b, equation_test.c, equation_test.x1, equation_test.x2,
+                   equation_test.rootsCount, x1Correct, x2Correct, rootsCountCorrect);
         }
         else
         {
@@ -153,7 +151,7 @@ void RunTest(int numberTest, double a, double b, double c, double x1Correct, dou
 
 void buffer_scanf(solveSquare * roots)
 {
-    while (scanf("%lg %lg %lg", a, b, c) != 3)
+    while (scanf("%lg %lg %lg", roots->a, roots->b, roots->c) != 3)
     {
         printf("error - a, b, c\n");
         printf("Enter a, b, c again: ");
@@ -182,13 +180,13 @@ bool is_zero(double x)
 
 int print_roots(solveSquare roots)
 {
-    switch(rootsCount)
+    switch(roots.rootsCount)
     {
         case ZERO_ROOT: printf("No roots\n");
                 break;
-        case ONE_ROOT: printf("x = %lg\n", x1);
+        case ONE_ROOT: printf("x = %lg\n", roots.x1);
                 break;
-        case TWO_ROOT: printf("x1 = %lg and x2 = %lg\n", x1, x2);
+        case TWO_ROOT: printf("x1 = %lg and x2 = %lg\n", roots.x1, roots.x2);
                 break;
         case SS_INF_ROOTS: printf("Any number\n");
                 break;
