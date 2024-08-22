@@ -1,3 +1,4 @@
+
 // SolveSquare programm
 
 #include<stdio.h>
@@ -5,18 +6,14 @@
 #include<TXLib.h>
 #include<assert.h>
 
-struct SquareInfo
-{
-
-};
-
 enum nRoots {
     ZERO_ROOT = 0,
     ONE_ROOT  = 1,
     TWO_ROOT  = 2,
     SS_INF_ROOTS = -1
 };
-int print_roots(int rootsCount, double x1,double x2);
+
+int print_roots(int rootsCount, double x1, double x2);
 
 void SkipLine();
 
@@ -35,10 +32,9 @@ nRoots SolveSquare( double a, double b, double c, double *x1, double *x2);
 
 
 
+
 int main(void)
 {
-//    struct SquareInfo square_equation = {0, 0, 0, 0, 0, 0};
-
     RunTest(1, 1, 2, -3, 1, -3, 2);
     RunTest(2, 1, -4, 8, 0, 0, 0);
     RunTest(3, 1, 0, -4,-2, 2, 2);
@@ -52,14 +48,12 @@ int main(void)
 
     double a = NAN, b = NAN, c = NAN;
 
+    buffer_scanf(&a, &b, &c);
 
 
-//    buffer_scanf(&square_equation);
 
     double x1 = NAN, x2 = NAN;
-
     nRoots rootsCount = SolveSquare(a, b, c, &x1, &x2);
-
 
     print_roots(rootsCount, x1, x2);
 
@@ -147,7 +141,7 @@ void RunTest(int numberTest, double a, double b, double c, double x1Correct, dou
     {
         if (CompareDoubles(x1, x2Correct) || CompareDoubles(x2, x1Correct))
         {
-            printf("ERROR numberTest = น%d, a = %lg, b = %lg, c = %lg, x1 = %lg, x2 = %lg, rootsCount = %d\n"
+            printf("ERROR numberTest = ยน%d, a = %lg, b = %lg, c = %lg, x1 = %lg, x2 = %lg, rootsCount = %d\n"
             "x1Correct = %lg, x2Correct = %lg, rootsCountCorrect = %d\n", numberTest, a, b, c, x1, x2, rootsCount, x1Correct, x2Correct, rootsCountCorrect);
         }
         else
@@ -192,4 +186,3 @@ int print_roots(int rootsCount, double x1, double x2)
         default: printf("main() ERROR");
      }       return 1;
 }
-
