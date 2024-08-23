@@ -4,46 +4,7 @@
 #include<math.h>
 #include<TXLib.h>
 #include<assert.h>
-
-enum nRoots {
-    ZERO_ROOT = 0,
-    ONE_ROOT  = 1,
-    TWO_ROOT  = 2,
-    SS_INF_ROOTS = -1
-};
-
-struct UNIT_variables
-{
-    int numberTest;
-    double a;
-    double b;
-    double c;
-    double x1Correct;
-    double x2Correct;
-    enum nRoots rootsCountCorrect;
-
-};
-
-const double num = 1e-6;
-
-void AllTests();
-
-void RunTest(struct UNIT_variables data);
-
-int print_roots(int rootsCount, double x1, double x2);
-
-void SkipLine();
-int input_coef();
-
-bool is_zero(double x);
-int CompareDoubles(double a, double b);
-
-
-
-void buffer_scanf(double *a, double *b, double *c);
-
-
-enum nRoots SolveSquare( double a, double b, double c, double *x1, double *x2);
+#include"SolveSquare.hpp"
 
 
 
@@ -51,24 +12,7 @@ enum nRoots SolveSquare( double a, double b, double c, double *x1, double *x2);
 int main(void)
 {
 
-//    AllTests();
-
-    struct UNIT_variables data1 = {1, -3, 2, 2, 1, TWO_ROOT};
-
-    struct UNIT_variables data2 = {1, -5, 6, 3, 2, TWO_ROOT};
-
-    struct UNIT_variables data3 = {1, 2, 1, -1, -1, ONE_ROOT};
-
-    struct UNIT_variables data4 = {1, 0, -9, -3, 3, TWO_ROOT};
-
-    struct UNIT_variables data5 = {1, 0, 0, 0, 0, ONE_ROOT};
-
-    RunTest(data1);
-    RunTest(data2);
-    RunTest(data3);
-    RunTest(data3);
-    RunTest(data4);
-    RunTest(data5);
+    AllTests();
 
 
     printf("#Square Solver! by rAch-kaplin\n");
@@ -148,41 +92,28 @@ enum nRoots SolveSquare(double a, double b, double c, double *x1, double *x2)
 void SkipLine()
 {
     int line;
-    while ((line = getchar()) != '\n' && line != EOF);
+    while ((line = getchar()) != '\n' && line != EOF && line != '\t');
 
 }
 
 void buffer_scanf(double *a, double *b, double *c)
 {
+    printf("Enter a, b, c or enter (q) - close program\n");
+
+
     while (scanf("%lg %lg %lg", a, b, c) != 3)
     {
         printf("error - a, b, c\n");
         printf("Enter a, b, c again: ");
         SkipLine();
+
     }
+
+
 
 }
 
-void RunTest(struct UNIT_variables data)
-{
-    double x1 = NAN, x2 = NAN;
-    enum nRoots rootsCount = SolveSquare(data.a, data.b, data.c, &x1, &x2);
-    if (CompareDoubles(rootsCount, data.rootsCountCorrect) || CompareDoubles(x1, data.x1Correct) || CompareDoubles(x2, data.x2Correct))
-    {
-        if (CompareDoubles(x1, data.x2Correct) || CompareDoubles(x2, data.x1Correct))
-        {
-            printf("ERROR numberTest = %d, a = %lg, b = %lg, c = %lg, x1 = %lg, x2 = %lg, rootsCount = %d\n"
-            "x1Correct = %lg, x2Correct = %lg, rootsCountCorrect = %d\n", data.numberTest,
-            data.a, data.b, data.c, x1, x2, rootsCount, data.x1Correct, data.x2Correct,
-            data.rootsCountCorrect);
-        }
-        else
-        {
-            printf("test successfull\n");
-        }
-    }
 
-}
 
 
 
@@ -221,20 +152,34 @@ int print_roots(int rootsCount, double x1, double x2)
 //
 //void AllTests()
 //{
+//                                  a    b   c  x1c x2c  rootsCountCorrect
 //
-
-
+//    struct UNIT_variables data1 = {1, -3, 2, 2, 1, TWO_ROOT};
+//    RunTest(data1);
 //
-//    const int nTests = 3;
+//    struct UNIT_variables data2 = {1, -5, 6, 3, 2, TWO_ROOT};
+//    RunTest(data2);
 //
-//    double a[nTests] = {1, 1, 1};
-//    double b[nTests] = {2, 0, 0};
-//    double c[nTests] = {3, -4, 1};
-//    double x1Correct[nTests] = {NAN, -2, 0};
-//    double x2Correct[nTests] = {NAN, 2, NAN};
-//    int rootsCountCorrect[nTests] = {0, 2, 1};
+//    struct UNIT_variables data3 = {1, 2, 1, -1, -1, ONE_ROOT};
+//    RunTest(data3);
 //
-//    for (int i = 0; i < nTests; i++)
-//        RunTest(i, a[i], b[i], c[i], x1Correct[i], x2Correct[i], rootsCountCorrect[i]);
+//    struct UNIT_variables data4 = {1, 0, -9, -3, 3, TWO_ROOT};
+//    RunTest(data4);
 //
+//    struct UNIT_variables data5 = {1, 0, 0, 0, 0, ONE_ROOT};
+//    RunTest(data5);
+//
+//    struct UNIT_variables data6 = {1, 2, 3, NAN, NAN, ZERO_ROOT};
+//    RunTest(data6);
+//
+//    struct UNIT_variables data7 = {1, 0, -4, -2, 2, TWO_ROOT};
+//    RunTest(data7);
+//
+//    struct UNIT_variables data8 = {1, 0, 0, 0, NAN, ONE_ROOT};
+//    RunTest(data8);
 //}
+
+
+
+
+
