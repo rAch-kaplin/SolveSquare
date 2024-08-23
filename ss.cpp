@@ -5,10 +5,6 @@
 #include<TXLib.h>
 #include<assert.h>
 
-const double num = 1e-6;
-
-void AllTests();
-
 enum nRoots {
     ZERO_ROOT = 0,
     ONE_ROOT  = 1,
@@ -16,7 +12,23 @@ enum nRoots {
     SS_INF_ROOTS = -1
 };
 
-void RunTest(int numberTest, double a, double b, double c, double x1Correct, double x2Correct, int rootsCountCorrect);
+struct UNIT_variables
+{
+    int numberTest;
+    double a;
+    double b;
+    double c;
+    double x1Correct;
+    double x2Correct;
+    enum nRoots rootsCountCorrect;
+
+};
+
+const double num = 1e-6;
+
+void AllTests();
+
+void RunTest(struct UNIT_variables data);
 
 int print_roots(int rootsCount, double x1, double x2);
 
@@ -31,7 +43,7 @@ int CompareDoubles(double a, double b);
 void buffer_scanf(double *a, double *b, double *c);
 
 
-nRoots SolveSquare( double a, double b, double c, double *x1, double *x2);
+enum nRoots SolveSquare( double a, double b, double c, double *x1, double *x2);
 
 
 
@@ -39,7 +51,25 @@ nRoots SolveSquare( double a, double b, double c, double *x1, double *x2);
 int main(void)
 {
 
-    AllTests();
+//    AllTests();
+
+    struct UNIT_variables data1 = {1, -3, 2, 2, 1, TWO_ROOT};
+
+    struct UNIT_variables data2 = {1, -5, 6, 3, 2, TWO_ROOT};
+
+    struct UNIT_variables data3 = {1, 2, 1, -1, -1, ONE_ROOT};
+
+    struct UNIT_variables data4 = {1, 0, -9, -3, 3, TWO_ROOT};
+
+    struct UNIT_variables data5 = {1, 0, 0, 0, 0, ONE_ROOT};
+
+    RunTest(data1);
+    RunTest(data2);
+    RunTest(data3);
+    RunTest(data3);
+    RunTest(data4);
+    RunTest(data5);
+
 
     printf("#Square Solver! by rAch-kaplin\n");
 
@@ -53,7 +83,7 @@ int main(void)
 
 
     double x1 = NAN, x2 = NAN;
-    nRoots rootsCount = SolveSquare(a, b, c, &x1, &x2);
+    enum nRoots rootsCount = SolveSquare(a, b, c, &x1, &x2);
 
     print_roots(rootsCount, x1, x2);
 
@@ -63,7 +93,7 @@ int main(void)
 
 
 
-nRoots SolveSquare(double a, double b, double c, double *x1, double *x2)
+enum nRoots SolveSquare(double a, double b, double c, double *x1, double *x2)
 {
     assert(isfinite(a));
     assert(isfinite(b));
@@ -119,7 +149,6 @@ void SkipLine()
 {
     int line;
     while ((line = getchar()) != '\n' && line != EOF);
-//        printf ("line == %c <%d>\n", line, line);
 
 }
 
@@ -134,16 +163,18 @@ void buffer_scanf(double *a, double *b, double *c)
 
 }
 
-void RunTest(int numberTest, double a, double b, double c, double x1Correct, double x2Correct, int rootsCountCorrect)
+void RunTest(struct UNIT_variables data)
 {
-    double x1 = 0, x2 = 0;
-    int rootsCount = SolveSquare(a, b, c, &x1, &x2);
-    if (CompareDoubles(rootsCount, rootsCountCorrect) || CompareDoubles(x1, x1Correct) || CompareDoubles(x2, x2Correct))
+    double x1 = NAN, x2 = NAN;
+    enum nRoots rootsCount = SolveSquare(data.a, data.b, data.c, &x1, &x2);
+    if (CompareDoubles(rootsCount, data.rootsCountCorrect) || CompareDoubles(x1, data.x1Correct) || CompareDoubles(x2, data.x2Correct))
     {
-        if (CompareDoubles(x1, x2Correct) || CompareDoubles(x2, x1Correct))
+        if (CompareDoubles(x1, data.x2Correct) || CompareDoubles(x2, data.x1Correct))
         {
             printf("ERROR numberTest = %d, a = %lg, b = %lg, c = %lg, x1 = %lg, x2 = %lg, rootsCount = %d\n"
-            "x1Correct = %lg, x2Correct = %lg, rootsCountCorrect = %d\n", numberTest, a, b, c, x1, x2, rootsCount, x1Correct, x2Correct, rootsCountCorrect);
+            "x1Correct = %lg, x2Correct = %lg, rootsCountCorrect = %d\n", data.numberTest,
+            data.a, data.b, data.c, x1, x2, rootsCount, data.x1Correct, data.x2Correct,
+            data.rootsCountCorrect);
         }
         else
         {
@@ -187,26 +218,23 @@ int print_roots(int rootsCount, double x1, double x2)
         default: printf("main() ERROR");
      }       return 1;
 }
+//
+//void AllTests()
+//{
+//
 
-void AllTests()
-{
 
-//    RunTest(1, 1, 2, -3, 1, -3, 2);
-//    RunTest(2, 1, -4, 8, 0, 0, 0);
-//    RunTest(3, 1, 0, -4,-2, 2, 2);
-
-//          n  a  b  c  x1c x2c rc
-
-    const int nTests = 3;
-
-    double a[nTests] = {1, 1, 1};
-    double b[nTests] = {2, 0, 0};
-    double c[nTests] = {3, -4, 1};
-    double x1Correct[nTests] = {NAN, -2, 0};
-    double x2Correct[nTests] = {NAN, 2, NAN};
-    int rootsCountCorrect[nTests] = {0, 2, 1};
-
-    for (int i = 0; i < nTests; i++)
-        RunTest(i, a[i], b[i], c[i], x1Correct[i], x2Correct[i], rootsCountCorrect[i]);
-
-}
+//
+//    const int nTests = 3;
+//
+//    double a[nTests] = {1, 1, 1};
+//    double b[nTests] = {2, 0, 0};
+//    double c[nTests] = {3, -4, 1};
+//    double x1Correct[nTests] = {NAN, -2, 0};
+//    double x2Correct[nTests] = {NAN, 2, NAN};
+//    int rootsCountCorrect[nTests] = {0, 2, 1};
+//
+//    for (int i = 0; i < nTests; i++)
+//        RunTest(i, a[i], b[i], c[i], x1Correct[i], x2Correct[i], rootsCountCorrect[i]);
+//
+//}
