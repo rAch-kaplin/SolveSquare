@@ -15,7 +15,7 @@ struct UNIT_variables
     double c;
     double x1Correct;
     double x2Correct;
-    enum NRoots rootsCountCorrect;
+    enum nRoots rootsCountCorrect;
 
 };
 

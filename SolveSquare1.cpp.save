@@ -70,7 +70,6 @@ NRoots SolveSquare(double a, double b, double c, double *x1, double *x2) // TODO
 
         }
     }
-    return ZERO_ROOT;
 }
 
 
@@ -126,7 +125,7 @@ int solveLinearSquare(double b, double c, double * x1)
 }
 
 
-int printRoots(NRoots roots_count, double x1, double x2)
+int printRoots(int roots_count, double x1, double x2)
 {
     switch(roots_count)
     {

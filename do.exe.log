@@ -1,0 +1,38 @@
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: D:\C\SolveSquare\do.exe,
+
+ВНЕЗАПНО: signal (22, 0x00): SIGABRT: Аварийное завершение программы, вызвана функция abort(). 
+
+С помощью функции signal() вы можете сами обработать эту ошибку.
+
+#1: TXLib [Ver: 00173a, Rev: 173, Date: 2024-06-23 22:37:05 +0400], Instance: 0x0055469C (32-bit), Flags: Cmdre0, Thread: 0x25C0 (Main). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x00427797 in D:\C\SolveSquare\do.exe: (anonymous namespace)::TX::_txOnSignal()
+# 1 0x77228553 in C:\Windows\System32\msvcrt.dll: raise()
+# 2 0x7722CA3B in C:\Windows\System32\msvcrt.dll: abort()
+# 3 0x772293A7 in C:\Windows\System32\msvcrt.dll: assert()
+# 4 0x0041C902 in D:\C\SolveSquare\do.exe: SolveSquare()
+# 5 0x0041C870 in D:\C\SolveSquare\do.exe: main()
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 173, Date: 2024-06-23 22:37:05 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\program files (x86)\codeblocks\mingw\include\txlib.h
+Compiled:	Aug 24 2024 11:19:30, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, Debug
+Started:	Aug 24 2024 11:20:43
+
+Run file:	D:\C\SolveSquare\do.exe
+Directory:	D:\C\SolveSquare
+
+--------------------------------------------------

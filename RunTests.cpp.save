@@ -39,12 +39,9 @@ void allTests()
             data.rootsCountCorrect);
             return 1;
         }
-        else
-        {
-            printf("test successfull\n");
-            return 0;
-        }
+        
     }
+    
     // TODO: распечатку исправить
     return 0;
 }
