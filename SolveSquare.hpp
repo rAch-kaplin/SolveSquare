@@ -1,11 +1,11 @@
- // TODO: вынести в .cpp  +
+ // TODO: прочитай про include guard
 
 enum NRoots
-{ // TODO: в одном стиле и название +
+{
     ZERO_ROOT    =  0,
     ONE_ROOT     =  1,
     TWO_ROOT     =  2,
-    SS_INF_ROOTS = -1 // TODO: выровнять +
+    SS_INF_ROOTS = -1
 };
 
 struct UNIT_variables
@@ -19,22 +19,19 @@ struct UNIT_variables
 
 };
 
+//void allTests();
+//
+//int runTest(struct UNIT_variables data, int test_number);
 
-void allTests();
+//int printRoots(NRoots roots_count, double x1, double x2);
 
-int runTest(struct UNIT_variables data, int test_number);
+//void skipLine();
+//
+//void bufferScanf (double *a, double *b, double *c);
 
-int printRoots(NRoots roots_count, double x1, double x2);
-
-void skipLine();
-
-int inputCoef();
-
-void bufferScanf (double *a, double *b, double *c);
-
-bool isZero (double x);
-
-int compareDoubles (double a, double b);
+//bool isZero (double x);
+//
+//int compareDoubles (double a, double b);
 
 NRoots SolveSquare ( double a, double b, double c, double *x1, double *x2);
 

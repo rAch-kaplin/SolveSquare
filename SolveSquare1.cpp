@@ -2,11 +2,10 @@
 #include<math.h>
 #include<TXLib.h>
 #include<assert.h>
-#include"SolveSquare.hpp" // TODO: убрать пустоту +
+#include"SolveSquare.hpp"
 
 int main(void)
 {
-
     allTests();
 
     printf("#Square Solver! by rAch-kaplin\n");
@@ -19,16 +18,15 @@ int main(void)
 
     double x1 = NAN, x2 = NAN;
 
-    NRoots roots_count = SolveSquare(a, b, c, &x1, &x2); // + TODO: название енама с большой буквы, слово enum не писать
-    // TODO: + все названия переменных в одном стиле
-    printRoots(roots_count, x1, x2); // TODO: обрабатывать возвращаемое значение +
+    NRoots roots_count = SolveSquare(a, b, c, &x1, &x2);
+    printRoots(roots_count, x1, x2);
 
     return 0;
 }
 
 
 
-NRoots SolveSquare(double a, double b, double c, double *x1, double *x2) // TODO: слово enum..  +
+NRoots SolveSquare(double a, double b, double c, double *x1, double *x2)
 {
     assert(isfinite(a));
     assert(isfinite(b));
@@ -42,7 +40,9 @@ NRoots SolveSquare(double a, double b, double c, double *x1, double *x2) // TODO
     {
         solveLinearSquare(b, c, x1);
     }
-    else //  if (a != 0)
+
+
+    else // a != 0
     {
         double discriminant = b * b - 4 * a * c;
 
@@ -83,6 +83,4 @@ int solveLinearSquare(double b, double c, double * x1)
         return ONE_ROOT;
     }
 }
-
-
 
