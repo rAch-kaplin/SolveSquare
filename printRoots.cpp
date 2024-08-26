@@ -2,6 +2,7 @@
 #include<math.h>
 #include<TXLib.h>
 #include"printRoots.hpp"
+//#include"SolveSquare.hpp"
 
 void skipLine()
 {

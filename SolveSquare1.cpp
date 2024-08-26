@@ -3,26 +3,7 @@
 #include<TXLib.h>
 #include<assert.h>
 #include"SolveSquare.hpp"
-
-int main(void)
-{
-    allTests();
-
-    printf("#Square Solver! by rAch-kaplin\n");
-
-    printf("#Enter a b c: ");
-
-    double a = NAN, b = NAN, c = NAN;
-
-    bufferScanf(&a, &b, &c);
-
-    double x1 = NAN, x2 = NAN;
-
-    NRoots roots_count = SolveSquare(a, b, c, &x1, &x2);
-    printRoots(roots_count, x1, x2);
-
-    return 0;
-}
+#include "compareDoubles.hpp"
 
 
 
@@ -38,7 +19,8 @@ NRoots SolveSquare(double a, double b, double c, double *x1, double *x2)
 
     if (isZero(a))
     {
-        solveLinearSquare(b, c, x1);
+        printf ("BBBBBBBBBBBBBB");
+        return solveLinearSquare(b, c, x1);
     }
 
 
@@ -71,14 +53,15 @@ NRoots SolveSquare(double a, double b, double c, double *x1, double *x2)
     return ZERO_ROOT;
 }
 
-int solveLinearSquare(double b, double c, double * x1)
+NRoots solveLinearSquare(double b, double c, double * x1)
 {
     if (isZero(b))
     {
-        return (isZero(c))? SS_INF_ROOTS : ZERO_ROOT;  // + TODO: в отдельную функцию решение линейного уравнения
+        return (isZero(c))? SS_INF_ROOTS : ZERO_ROOT;
     }
     else // if (a == 0) and  (b != 0)
     {
+        printf ("AAAAAAAAA\n");
         *x1 = -c / b;
         return ONE_ROOT;
     }

@@ -5,9 +5,9 @@
 
 const double inaccuracy = 1e-6;
 
-int compareDoubles(double a, double b) // TODO: стиль compareDoubles +
+int compareDoubles(double a, double b)
 {
-        if (fabs(a - b) > inaccuracy) // TODO: в константу +
+        if (fabs(a - b) > inaccuracy)
             return 1;
         else
             return 0;

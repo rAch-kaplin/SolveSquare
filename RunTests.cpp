@@ -1,7 +1,9 @@
-#include<stdio.h>
-#include<math.h>
-#include<TXLib.h>
-#include"RunTests.hpp"
+#include <stdio.h>
+#include <math.h>
+#include <TXLib.h>
+#include "RunTests.hpp"
+#include "compareDoubles.hpp"
+#include "SolveSquare.hpp"
 
 void allTests()
 {
@@ -28,7 +30,7 @@ void allTests()
     double x1 = NAN, x2 = NAN;
     NRoots roots_count = SolveSquare(data.a, data.b, data.c, &x1, &x2);
     if (compareDoubles(roots_count, data.rootsCountCorrect) || compareDoubles(x1, data.x1Correct) ||
-        compareDoubles(x2, data.x2Correct))// TODO: корни местами менять
+        compareDoubles(x2, data.x2Correct))
     {
         if (compareDoubles(x1, data.x2Correct) || compareDoubles(x2, data.x1Correct))
         {
