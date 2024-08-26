@@ -1,4 +1,6 @@
  // TODO: прочитай про include guard
+ #ifndef H_SOLVESQUARE
+ #define H_SOLVESQUARE
 
 enum NRoots
 {
@@ -8,34 +10,18 @@ enum NRoots
     SS_INF_ROOTS = -1
 };
 
-struct UNIT_variables
-{
-    double a;
-    double b;
-    double c;
-    double x1Correct;
-    double x2Correct;
-    enum NRoots rootsCountCorrect;
 
-};
+int printRoots(NRoots roots_count, double x1, double x2);
 
-//void allTests();
-//
-//int runTest(struct UNIT_variables data, int test_number);
+void skipLine();
 
-//int printRoots(NRoots roots_count, double x1, double x2);
+void bufferScanf (double *a, double *b, double *c);
 
-//void skipLine();
-//
-//void bufferScanf (double *a, double *b, double *c);
+NRoots SolveSquare (double a, double b, double c, double *x1, double *x2);
 
-//bool isZero (double x);
-//
-//int compareDoubles (double a, double b);
+NRoots solveLinearSquare (double b, double c, double * x1);
 
-NRoots SolveSquare ( double a, double b, double c, double *x1, double *x2);
-
-int solveLinearSquare (double b, double c, double * x1);
+#endif // H_SOLVESQUARE
 
 
 
