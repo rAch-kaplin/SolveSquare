@@ -8,8 +8,8 @@ void allTests()
 {
     const int nTests = 8;
 
-    struct UNIT_variables data[nTests] = {{1,  -3,   2,   2,   1,   TWO_ROOT},
-                                          {1,  -5,   6,   3,   2,   TWO_ROOT},
+    struct UNIT_variables data[nTests] = {{1,  -3,   2,   1,   2,   TWO_ROOT},
+                                          {1,  -5,   6,   2,   3,   TWO_ROOT},
                                           {1,   2,   1,  -1,  -1,   ONE_ROOT},
                                           {1,   0,  -9,  -3,   3,   TWO_ROOT},
                                           {1,   0,   0,   0,   0,   ONE_ROOT},
@@ -31,20 +31,12 @@ void allTests()
     if (compareDoubles(roots_count, data.rootsCountCorrect) || compareDoubles(x1, data.x1Correct) ||
         compareDoubles(x2, data.x2Correct))
     {
-        if (compareDoubles(x1, data.x2Correct) || compareDoubles(x2, data.x1Correct))
-        {
-            printf("ERROR: test № %d, a = %lg, b = %lg, c = %lg, x1 = %lg, x2 = %lg, rootsCount = %d\n"
-                   "x1Correct = %lg, x2Correct = %lg, rootsCountCorrect = %d\n", test_number,
-            data.a, data.b, data.c, x1, x2, roots_count, data.x1Correct, data.x2Correct,
-            data.rootsCountCorrect);
-            return 1;
-        }
-        else
-        {
-            printf("test successfull\n");
-            return 0;
-        }
+        printf("ERROR: test № %d, a = %lg, b = %lg, c = %lg, x1 = %lg, x2 = %lg, rootsCount = %d\n"
+                "x1Correct = %lg, x2Correct = %lg, rootsCountCorrect = %d\n", test_number,
+        data.a, data.b, data.c, x1, x2, roots_count, data.x1Correct, data.x2Correct,
+        data.rootsCountCorrect);
+        return 1;
     }
-    // TODO: распечатку исправить
+
     return 0;
 }
